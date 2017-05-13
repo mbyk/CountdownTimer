@@ -32,9 +32,10 @@ class CountdownTimer {
             guard let weakSelf = self else { return }
             
             let currentTime: UInt64 = mach_absolute_time()
-            let diff = currentTime - weakSelf.startTime
+            let elapsed = currentTime - weakSelf.startTime
+            let remain = max(weakSelf.seconds - Int(elapsed/1000000000), 0)
             DispatchQueue.main.async {
-                self?.delegate?.updateCountdown(remain: max(weakSelf.seconds - Int(diff/1000000000), 0))
+                self?.delegate?.updateCountdown(remain: remain)
             }
 
         }
