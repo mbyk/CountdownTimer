@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var countdownLabel: UILabel!
     
-    var countdownTimer = CountdownTimer(seconds: 600)
+    var countdownTimer = CountdownTimer(seconds: 10)
     
     @IBAction func startAction() {
         countdownTimer.stop()
@@ -34,7 +34,11 @@ extension ViewController: CountdownTimerProtocol {
     func updateCountdown(remain: Int) {
         let minites: Int = remain / 60
         let seconds: Int = remain % 60
-        countdownLabel.text = String(format: "%02d:%02d", minites, seconds)
-        
+
+        if remain > 0 {
+            countdownLabel.text = String(format: "%02d:%02d", minites, seconds)
+        } else {
+            countdownLabel.text = "timeup!"
+        }
     }
 }
